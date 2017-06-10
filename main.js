@@ -1,32 +1,6 @@
-str_innerHTML =
-'<div class="cls_fname"><span class="fa fa-user"></span>' +
-'<input type="text" id = "user-first-name" placeholder="First Name"></div>' +
-'<div class="cls_lname"><span class="fa fa-user"></span>'+
-'<input type="text" id = "user-last-name" placeholder="Last Name"></div>' +
-'<div class="cls_email"><span class="fa fa-envelope"></span>'+
-'<input type="email" id = "user-email" placeholder="Email Address"></div>' +
-'<div class="cls_web"><span class="fa fa-globe"></span>'+
-'<input type="text" id = "user-website" placeholder="Current website url"></div>' +
-'<div class="cls_lang"><select id="user-language" placeholder="">' +
-'<option value="">Select Language...</option>' +
-'<option value="EN">English</option>' +
-'<option value="FR">French</option>' +
-'<option value="SP">Spanish</option>' +
-'<option value="CH">Chinese</option>' +
-'<option value="JP">Japanese</option>' +
-'</select></div>' +
-'<div class="cls_txtarea"><span class="fa fa-comments"></span>'+
-'<textarea id="user-comment" placeholder="Your Comment"></textarea></div>' +
-'<div class="cls_mobile"><span class="fa fa-mobile-phone"></span>'+
-'<input type="tel" id = "user-mobile" placeholder="Mobil Number"></div>' +
-'<div class="cls_phone"><span class="fa fa-phone"></span>'+
-'<input type="tel" id = "user-phone" placeholder="Home Number"></div>';
-
-var container  = document.querySelector('.frm_elements');
-container.innerHTML = str_innerHTML;
-
-
-/*var formData = [
+// The Form Data
+// Write your code below this array
+let formData = [
   {
     "type": "text",
     "label": "First Name",
@@ -105,4 +79,37 @@ container.innerHTML = str_innerHTML;
     "options": []
   }
 ];
-*/
+
+// Hints -----------
+
+// Accessing specific properties.
+//formData[0].label // this will give us "First Name"
+// as you can see we access the first element in the array
+// with [0] and then grab the property "label" using the "." character
+// Looping
+// Sample of how to loop over the formData
+
+  // Check your dev tools console for what the items in formData have
+// -------- Your Code Goes Here --------
+for (var i = 0; i < formData.length; i++) {
+  let obj_fields = document.querySelector(".fields");
+  let obj = formData[i];
+  let text;
+  if (obj.options.length === 0) {
+    if(obj.type == 'textarea'){
+      text = '<div class="cls_fields"><span class="fa '+ obj.icon +'"></span>';
+      text = text + '<' + obj.type + '  id="' + obj.id + '" placeholder="' + obj.label +'"></'+ obj.type +'></div>';
+    }
+    else {
+      text = '<div class="cls_fields"><span class="fa '+ obj.icon +'"></span>';
+      text = text + '<input type="' + obj.type + '" id="' + obj.id + '" placeholder="' + obj.label +'"></div>';
+    }
+  }
+  else {
+      text = '<div class="cls_fields"><select><option>' + obj.label +'</option>';
+      for (var j = 0; j < obj.options.length; j++){
+      text = text + '<option value="' + obj.options[j].value +'">' + obj.options[j].label + '</option></div>';
+  }
+  }
+  obj_fields.insertAdjacentHTML("beforeend", text);
+}
